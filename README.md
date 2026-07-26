@@ -49,19 +49,6 @@ Dieses Projekt analysiert Langzeit-Temperaturreihen von sechs Wetterstationen in
 
 ---
 
-├── report.pdf        # English-language report
-├── analysis.R        # R script
-└── data/
-    ├── duisburg.txt
-    ├── dortmund.txt
-    ├── essen.txt
-    ├── arnsberg.txt
-    ├── brilon.txt
-    └── kahler_asten.txt
-```
-
----
-
 ## Software
 
 R 4.5.x · `tidyverse` · `ggplot2` · `patchwork` · `readr`
