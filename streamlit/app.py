@@ -1,19 +1,19 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from scipy.stats import ks_2samp, ttest_ind, shapiro
+import matplotlib.pyplot as plt
+from scipy.stats import ks_2samp, ttest_ind
 
-## Load data
 @st.cache_data
 def load_all_stations():
-   stations_meta = {
-    "Kahler Asten": {"file": "streamlit/indexTG_000812.txt", "elevation": 839},
-    "Dortmund":     {"file": "streamlit/indexTG_004021.txt", "elevation": 120},
-    "Duisburg":     {"file": "streamlit/indexTG_004030.txt", "elevation": 31},
-    "Essen":        {"file": "streamlit/indexTG_004074.txt", "elevation": 150},
-    "Arnsberg":     {"file": "streamlit/indexTG_004172.txt", "elevation": 218},
-    "Brilon":       {"file": "streamlit/indexTG_004897.txt", "elevation": 472},
-}
+    stations_meta = {
+        "Kahler Asten": {"file": "streamlit/indexTG_000812.txt", "elevation": 839},
+        "Dortmund":     {"file": "streamlit/indexTG_004021.txt", "elevation": 120},
+        "Duisburg":     {"file": "streamlit/indexTG_004030.txt", "elevation": 31},
+        "Essen":        {"file": "streamlit/indexTG_004074.txt", "elevation": 150},
+        "Arnsberg":     {"file": "streamlit/indexTG_004172.txt", "elevation": 218},
+        "Brilon":       {"file": "streamlit/indexTG_004897.txt", "elevation": 472},
+    }
 
     def load_station(filepath, elevation):
         df = pd.read_csv(
@@ -42,14 +42,12 @@ def load_all_stations():
 
 dfs = load_all_stations()
 
-## App layout
 st.title("Ruhr Climate Analysis")
 st.markdown(
     "Compare temperature distributions across time periods and stations "
     "using formal statistical tests. Based on ECA&D data from six NRW weather stations."
 )
 
-## Sidebar controls
 st.sidebar.header("Settings")
 
 station = st.sidebar.selectbox(
@@ -75,24 +73,21 @@ st.sidebar.markdown("**Period 2**")
 p2_start = st.sidebar.slider("Start", year_min, year_max - 10, max(year_min, 1991), key="p2s")
 p2_end = st.sidebar.slider("End", year_min, year_max, min(year_max, 2020), key="p2e")
 
-## Get data
 p1 = df[(df["year"] >= p1_start) & (df["year"] <= p1_end)][season].dropna()
 p2 = df[(df["year"] >= p2_start) & (df["year"] <= p2_end)][season].dropna()
 
-## Descriptive stats
 st.header("Descriptive Statistics")
 
 col1, col2 = st.columns(2)
 with col1:
-    st.metric(f"Period 1 mean ({p1_start}–{p1_end})", f"{p1.mean():.2f}°C")
+    st.metric(f"Period 1 mean ({p1_start}-{p1_end})", f"{p1.mean():.2f}°C")
     st.metric("n", len(p1))
 with col2:
-    st.metric(f"Period 2 mean ({p2_start}–{p2_end})", f"{p2.mean():.2f}°C")
+    st.metric(f"Period 2 mean ({p2_start}-{p2_end})", f"{p2.mean():.2f}°C")
     st.metric("n", len(p2))
 
 st.metric("Raw difference", f"{p2.mean() - p1.mean():.2f}°C")
 
-## Hypothesis tests
 st.header("Hypothesis Tests")
 
 if len(p1) < 3 or len(p2) < 3:
@@ -126,16 +121,13 @@ else:
 
     st.metric("Cohen's d", f"{cohens_d:.3f}")
 
-## Time series plot
 st.header("Temperature Over Time")
-
-import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(figsize=(10, 4))
 df_clean = df.dropna(subset=[season])
 ax.plot(df_clean["year"], df_clean[season], color="steelblue", alpha=0.8)
-ax.axvspan(p1_start, p1_end, alpha=0.2, color="red", label=f"Period 1")
-ax.axvspan(p2_start, p2_end, alpha=0.2, color="blue", label=f"Period 2")
+ax.axvspan(p1_start, p1_end, alpha=0.2, color="red", label="Period 1")
+ax.axvspan(p2_start, p2_end, alpha=0.2, color="blue", label="Period 2")
 ax.set_xlabel("Year")
 ax.set_ylabel("Temperature (°C)")
 ax.legend()
