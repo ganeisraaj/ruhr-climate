@@ -6,14 +6,14 @@ from scipy.stats import ks_2samp, ttest_ind, shapiro
 ## Load data
 @st.cache_data
 def load_all_stations():
-    stations_meta = {
-        "Kahler Asten": {"file": "indexTG_000812.txt", "elevation": 839},
-        "Dortmund":     {"file": "indexTG_004021.txt", "elevation": 120},
-        "Duisburg":     {"file": "indexTG_004030.txt", "elevation": 31},
-        "Essen":        {"file": "indexTG_004074.txt", "elevation": 150},
-        "Arnsberg":     {"file": "indexTG_004172.txt", "elevation": 218},
-        "Brilon":       {"file": "indexTG_004897.txt", "elevation": 472},
-    }
+   stations_meta = {
+    "Kahler Asten": {"file": "streamlit/indexTG_000812.txt", "elevation": 839},
+    "Dortmund":     {"file": "streamlit/indexTG_004021.txt", "elevation": 120},
+    "Duisburg":     {"file": "streamlit/indexTG_004030.txt", "elevation": 31},
+    "Essen":        {"file": "streamlit/indexTG_004074.txt", "elevation": 150},
+    "Arnsberg":     {"file": "streamlit/indexTG_004172.txt", "elevation": 218},
+    "Brilon":       {"file": "streamlit/indexTG_004897.txt", "elevation": 472},
+}
 
     def load_station(filepath, elevation):
         df = pd.read_csv(
