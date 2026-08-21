@@ -1,9 +1,18 @@
 # Thema 2 — Comparison of Distributions for the Analysis of Temporal and Spatial Climate Differences in the Ruhr Region
 **Vergleich von Verteilungen zur Analyse zeitlicher und räumlicher Klimaunterschiede im Ruhrgebiet**
-
 **Technische Universität Dortmund | Department of Statistics | SoSe 2026**
 Supervised by Prof. Dr. Katja Ickstadt, JProf. Dr. Nils Weitzel, Dr. Zeyu Ding
-Author: Ganeisraaj Kathiravan | Group partner: Jakub Marczat
+Author: Ganeisraaj Kathiravan | Group partner: Jakub Marczak
+
+---
+
+## 🚀 Live App / Live-Anwendung
+
+An interactive Streamlit app based on this analysis is deployed here:
+
+👉 **[Ruhr Climate Analysis — Live App](https://ganeisraaj-ruhr-climate.streamlit.app/)**
+
+Select a station, season, and two time periods to run Welch t-tests and KS tests live and visualise the temperature shift.
 
 ---
 
@@ -43,12 +52,16 @@ Dieses Projekt analysiert Langzeit-Temperaturreihen von sechs Wetterstationen in
 
 ## Key Findings / Zentrale Ergebnisse
 
-- Annual mean temperature at Kahler Asten rose by **+0.76°C** between 1931–1960 and 1991–2020 (*d* = 0.955).
-- The spatial temperature range across stations (~6°C over 800 m) is approximately **eight times** the temporal warming signal.
-- Elevation accounts for the large majority of spatial differences; Arnsberg shows residual cooling (~0.7°C) consistent with cold air pooling, and Duisburg shows slight residual warmth consistent with an urban heat island effect.
+- Annual mean temperature at Kahler Asten rose by **+0.76°C** between 1931–1960 and 1991–2020 (*d* = 0.955)
+- The spatial temperature range across stations (~6°C over 800 m) is approximately **eight times** the temporal warming signal
+- Elevation accounts for the large majority of spatial differences; Arnsberg shows residual cooling (~0.7°C) consistent with cold air pooling, and Duisburg shows slight residual warmth consistent with an urban heat island effect
 
 ---
 
 ## Software
 
+**R analysis:**
 R 4.5.x · `tidyverse` · `ggplot2` · `patchwork` · `readr`
+
+**Python / Streamlit app:**
+Python 3.12 · `pandas` · `numpy` · `scipy` · `matplotlib` · `streamlit`
